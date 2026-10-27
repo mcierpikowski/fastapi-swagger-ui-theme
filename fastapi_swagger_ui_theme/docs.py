@@ -55,11 +55,12 @@ def setup_swagger_ui_theme(
     def swagger_docs(request: Request) -> HTMLResponse:
         root_path = (request.scope.get("root_path") or "").rstrip("/")
         openapi_url = root_path + (app.openapi_url or "/openapi.json")
+        static_base = root_path + static_mount_path
 
         return _swagger_ui_theme_docs(
             openapi_url=openapi_url,
             title=title or f"{app.title} Docs",
-            static_mount_path=static_mount_path,
+            static_mount_path=static_base,
             swagger_js_url=swagger_js_url,
             swagger_css_url=swagger_css_url,
             swagger_favicon_url=swagger_favicon_url,
